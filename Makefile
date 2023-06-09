@@ -1,4 +1,4 @@
-.PHONY: up-build up down logs status install generate-schema create-migration migrate-dev seed-dev migrate-test seed-test test test-coverage test-filter lint lint-fix format help
+.PHONY: up-build up down logs status generate-schema create-migration migrate-dev seed-dev migrate-test seed-test test test-coverage test-filter lint lint-fix format help
 .DEFAULT_GOAL := help
 run-docker-compose = docker compose -f docker-compose.yml
 run-npm = docker-compose run --rm app npm
@@ -19,25 +19,22 @@ logs: # Tail container logs
 status: # Show status of all containers
 	$(run-docker-compose) ps
 
-install: # Install dependencies
-	$(run-npm) install
-
 generate-schema: # Build prisma schema
 	$(run-npx) prisma generate
 
 create-migration: # Create new migration
 	$(run-npx) prisma migrate dev --name $(name) --create-only
 
-migrate-dev: # Run migrations
+migrate-dev: # Run migrations for dev database
 	$(run-npm) run migrate:dev
 
-seed-dev: # Seed database
+seed-dev: # Seed dev database
 	$(run-npm) run seed:dev
 
 migrate-test: # Run migrations for test database
 	$(run-npm) run migrate:test
 
-seed-test: # Seed database for test database
+seed-test: # Seed test database
 	$(run-npm) run seed:test
 
 test: migrate-test seed-test # Run tests
