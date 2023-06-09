@@ -1,0 +1,47 @@
+{
+  "name": "fastify-modular-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --exit-child ./src/server.ts",
+    "build": "rm -rf build && tsc",
+    "start": "node build/server.js",
+    "migrate:dev": "npx prisma migrate dev",
+    "seed:dev": "npx prisma db seed",
+    "migrate:test": "dotenv -e .env.test -- npx prisma migrate dev",
+    "seed:test": "dotenv -e .env.test -- npx prisma db seed",
+    "test": "dotenv -e .env.test -- tap test --node-arg=--require=ts-node/register --no-coverage",
+    "test:filter": "dotenv -e .env.test -- tap test --grep=$npm_config_filter --node-arg=--require=ts-node/register --no-coverage",
+    "test:coverage": "dotenv -e .env.test -- tap test --node-arg=--require=ts-node/register"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/autoload": "^5.7.1",
+    "@fastify/env": "^4.2.0",
+    "@fastify/jwt": "^7.0.0",
+    "@fastify/swagger": "^8.5.1",
+    "@fastify/swagger-ui": "^1.8.1",
+    "@fastify/type-provider-typebox": "^3.2.0",
+    "@prisma/client": "^4.15.0",
+    "@sinclair/typebox": "^0.28.14",
+    "fastify": "^4.17.0",
+    "fastify-prisma-client": "^5.0.0",
+    "tap": "^16.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "@types/tap": "^15.0.8",
+    "dotenv-cli": "^7.2.1",
+    "fastify-tsconfig": "^1.0.1",
+    "prisma": "^4.15.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.3"
+  }
+}

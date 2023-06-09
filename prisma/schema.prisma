@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Robot {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
+
+model User {
+  id        Int    @id @default(autoincrement())
+  username  String @unique
+  email     String @unique
+  password  String
+  firstname String
+  lastname  String
+}

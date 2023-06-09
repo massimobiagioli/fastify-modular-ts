@@ -1,0 +1,50 @@
+version: '3.9'
+services:
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./mariadb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - mynet
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: mariadb
+    ports:
+      - "8080:8080"
+    networks:
+      - mynet
+
+  app:
+    build: .
+    restart: always
+    expose:
+      - ${SERVER_PORT}
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    depends_on:
+      - mariadb
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - mynet
+
+volumes:
+  mariadb:
+    driver: local
+
+networks:
+  mynet:
+    driver: bridge
