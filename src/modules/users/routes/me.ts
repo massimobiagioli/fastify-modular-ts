@@ -4,7 +4,7 @@ import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox'
 
 const route: FastifyPluginAsyncTypebox = async function (
   app: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
   app.get<{ Reply: LoggedUserType }>(
     '/me',
@@ -14,21 +14,21 @@ const route: FastifyPluginAsyncTypebox = async function (
         tags: ['Users'],
         security: [
           {
-            apiKey: []
-          }
+            apiKey: [],
+          },
         ],
         response: {
           200: LoggedUser,
           404: {
             type: 'null',
-            description: 'User not found'
+            description: 'User not found',
           },
           500: {
             type: 'null',
-            description: 'Error retrieving user'
-          }
-        }
-      }
+            description: 'Error retrieving user',
+          },
+        },
+      },
     },
     async (request, reply) => {
       try {
@@ -42,7 +42,7 @@ const route: FastifyPluginAsyncTypebox = async function (
         request.log.error(error)
         return await reply.code(500).send()
       }
-    }
+    },
   )
 }
 

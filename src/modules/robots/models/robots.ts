@@ -2,7 +2,7 @@ import { Static, Type } from '@sinclair/typebox'
 
 export const RobotDto = Type.Object({
   id: Type.Integer(),
-  name: Type.String()
+  name: Type.String(),
 })
 
 export type RobotDtoType = Static<typeof RobotDto>

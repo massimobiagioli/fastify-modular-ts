@@ -4,7 +4,7 @@ import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox'
 
 const route: FastifyPluginAsyncTypebox = async function (
   fastify: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
   fastify.get<{ Reply: HealthResponseType }>(
     '/health',
@@ -12,13 +12,13 @@ const route: FastifyPluginAsyncTypebox = async function (
       schema: {
         tags: ['Status'],
         response: {
-          200: HealthResponse
-        }
-      }
+          200: HealthResponse,
+        },
+      },
     },
     async (_request, _reply) => {
       return { status: 'ok' }
-    }
+    },
   )
 }
 

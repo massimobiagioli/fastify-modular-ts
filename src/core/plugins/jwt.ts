@@ -1,13 +1,18 @@
 import fp from 'fastify-plugin'
-import { FastifyInstance, FastifyPluginOptions, FastifyReply, FastifyRequest } from 'fastify'
+import {
+  FastifyInstance,
+  FastifyPluginOptions,
+  FastifyReply,
+  FastifyRequest,
+} from 'fastify'
 import fastifyJwt from '@fastify/jwt'
 
-async function jwtPlugin (
+async function jwtPlugin(
   fastify: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
   fastify.register(fastifyJwt, {
-    secret: fastify.config.JWT_SECRET
+    secret: fastify.config.JWT_SECRET,
   })
 
   fastify.decorate(
@@ -18,7 +23,7 @@ async function jwtPlugin (
       } catch (err) {
         reply.send(err)
       }
-    }
+    },
   )
 }
 

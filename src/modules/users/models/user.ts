@@ -6,7 +6,7 @@ export const UserDto = Type.Object({
   email: Type.String({ format: 'email' }),
   firstname: Type.String(),
   lastname: Type.String(),
-  password: Type.String()
+  password: Type.String(),
 })
 
 export type UserDtoType = Static<typeof UserDto>
@@ -16,7 +16,7 @@ export const LoggedUser = Type.Object({
   username: Type.String(),
   email: Type.String({ format: 'email' }),
   firstname: Type.String(),
-  lastname: Type.String()
+  lastname: Type.String(),
 })
 
 export type LoggedUserType = Static<typeof LoggedUser>
@@ -28,7 +28,7 @@ export const LoggedUserFactory = {
       username: user.username,
       email: user.email,
       firstname: user.firstname,
-      lastname: user.lastname
+      lastname: user.lastname,
     }
-  }
+  },
 }

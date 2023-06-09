@@ -1,9 +1,9 @@
-import { test } from 'tap'
+import {test} from 'tap'
 import loginFactory from '../../../helper/loginFactory'
 import {build} from "../../../../src/app";
 import {RobotDtoCollectionType} from "../../../../src/modules/robots/models/robots";
 
-test('get all devices', async t => {
+test('get all robots', async t => {
   const app = build({
     logger: false
   })

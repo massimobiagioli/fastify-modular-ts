@@ -2,9 +2,9 @@ import fp from 'fastify-plugin'
 import { FastifyInstance, FastifyPluginOptions } from 'fastify'
 import { SignupRequestType } from '../models/signup'
 
-async function signupPlugin (
+async function signupPlugin(
   app: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
   const signup = async (request: SignupRequestType) => {
     request.password = app.hashPassword(request.username, request.password)

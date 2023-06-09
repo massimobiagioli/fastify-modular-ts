@@ -1,4 +1,4 @@
-.PHONY: up-build up down logs status install generate-schema create-migration migrate-dev seed-dev migrate-test seed-test test test-coverage test-filter help
+.PHONY: up-build up down logs status install generate-schema create-migration migrate-dev seed-dev migrate-test seed-test test test-coverage test-filter lint lint-fix format help
 .DEFAULT_GOAL := help
 run-docker-compose = docker compose -f docker-compose.yml
 run-npm = docker-compose run --rm app npm
@@ -48,6 +48,15 @@ test-coverage: migrate-test seed-test # Run tests with coverage
 
 test-filter: migrate-test seed-test # Run all tests with filter
 	$(run-npm) run test:filter --filter=$(filter)
+
+lint: # Run linter
+	$(run-npm) run lint
+
+lint-fix: # Run linter and fix errors
+	$(run-npm) run lint:fix
+
+format: # Run formatter
+	$(run-npm) run format
 
 help: # make help
 	@awk 'BEGIN {FS = ":.*#"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z0-9_-]+:.*?#/ { printf "  \033[36m%-27s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)

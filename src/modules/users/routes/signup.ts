@@ -4,7 +4,7 @@ import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox'
 
 const route: FastifyPluginAsyncTypebox = async function (
   fastify: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
   fastify.post<{ Body: SignupRequestType }>(
     '/signup',
@@ -15,14 +15,14 @@ const route: FastifyPluginAsyncTypebox = async function (
         response: {
           201: {
             type: 'null',
-            description: 'User registration successful'
+            description: 'User registration successful',
           },
           500: {
             type: 'null',
-            description: 'Error registering user'
-          }
-        }
-      }
+            description: 'Error registering user',
+          },
+        },
+      },
     },
     async (request, reply) => {
       try {
@@ -31,7 +31,7 @@ const route: FastifyPluginAsyncTypebox = async function (
       } catch (error) {
         reply.code(500).send()
       }
-    }
+    },
   )
 }
 

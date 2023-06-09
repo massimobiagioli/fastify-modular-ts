@@ -3,16 +3,16 @@ import { FastifyInstance, FastifyPluginOptions } from 'fastify'
 import { RobotDtoCollectionType } from '../models/robots'
 import { Robot } from '@prisma/client'
 
-function createDtoCollection (robots: Robot[]): RobotDtoCollectionType {
-  return robots.map(robot => ({
+function createDtoCollection(robots: Robot[]): RobotDtoCollectionType {
+  return robots.map((robot) => ({
     id: robot.id,
-    name: robot.name
+    name: robot.name,
   }))
 }
 
-async function listAllRobotsPlugin (
+async function listAllRobotsPlugin(
   app: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
   const listAllRobots = async (): Promise<RobotDtoCollectionType> => {
     const robots = await app.prisma.robot.findMany()

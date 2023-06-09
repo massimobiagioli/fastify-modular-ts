@@ -2,13 +2,11 @@ import fp from 'fastify-plugin'
 import { FastifyInstance, FastifyPluginOptions } from 'fastify'
 import { LoginRequestType } from '../models/login'
 
-async function loginFeaturePlugin (
+async function loginFeaturePlugin(
   app: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
-  const login = async (
-    request: LoginRequestType
-  ): Promise<string | null> => {
+  const login = async (request: LoginRequestType): Promise<string | null> => {
     const user = await app.findUserByUsername(request.username)
     if (user == null) {
       app.log.info(`User ${request.username} not found`)

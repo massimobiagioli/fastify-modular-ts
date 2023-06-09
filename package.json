@@ -13,7 +13,10 @@
     "seed:test": "dotenv -e .env.test -- npx prisma db seed",
     "test": "dotenv -e .env.test -- tap test --node-arg=--require=ts-node/register --no-coverage",
     "test:filter": "dotenv -e .env.test -- tap test --grep=$npm_config_filter --node-arg=--require=ts-node/register --no-coverage",
-    "test:coverage": "dotenv -e .env.test -- tap test --node-arg=--require=ts-node/register"
+    "test:coverage": "dotenv -e .env.test -- tap test --node-arg=--require=ts-node/register",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -37,8 +40,12 @@
   "devDependencies": {
     "@types/node": "^20.2.5",
     "@types/tap": "^15.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
     "dotenv-cli": "^7.2.1",
+    "eslint": "^8.42.0",
     "fastify-tsconfig": "^1.0.1",
+    "prettier": "^2.8.8",
     "prisma": "^4.15.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",

@@ -1,12 +1,12 @@
 import fp from 'fastify-plugin'
-import {FastifyInstance, FastifyPluginOptions} from 'fastify'
+import { FastifyInstance, FastifyPluginOptions } from 'fastify'
 import fastifyEnv from '@fastify/env'
-import {Config} from '../models/config'
-import {join} from 'path'
+import { Config } from '../models/config'
+import { join } from 'path'
 
-async function configPlugin (
+async function configPlugin(
   fastify: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
   let dotEnvPath = join(__dirname, '../../../.env')
   if (process.env.ENV === 'test') {
@@ -15,9 +15,9 @@ async function configPlugin (
 
   fastify.register(fastifyEnv, {
     dotenv: {
-      path: dotEnvPath
+      path: dotEnvPath,
     },
-    schema: Config
+    schema: Config,
   })
 }
 

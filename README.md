@@ -6,6 +6,8 @@ This is a demo project to show how to use Fastify with Typescript in a modular m
 * [x] Fastify
 * [x] Typescript
 * [x] Tap
+* [x] ESLint
+* [x] Prettier
 * [x] Swagger
 * [x] DotEnv
 * [x] Docker

@@ -4,7 +4,7 @@ import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox'
 
 const route: FastifyPluginAsyncTypebox = async function (
   app: FastifyInstance,
-  _opts: FastifyPluginOptions
+  _opts: FastifyPluginOptions,
 ): Promise<void> {
   app.post<{ Body: LoginRequestType }>(
     '/login',
@@ -16,14 +16,14 @@ const route: FastifyPluginAsyncTypebox = async function (
           200: LoginResponse,
           401: {
             type: 'null',
-            description: 'Invalid username or password'
+            description: 'Invalid username or password',
           },
           500: {
             type: 'null',
-            description: 'Error logging in user'
-          }
-        }
-      }
+            description: 'Error logging in user',
+          },
+        },
+      },
     },
     async (request, reply) => {
       try {
@@ -35,7 +35,7 @@ const route: FastifyPluginAsyncTypebox = async function (
       } catch (error) {
         reply.code(500).send()
       }
-    }
+    },
   )
 }
 

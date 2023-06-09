@@ -9,9 +9,9 @@ import { UserDtoType } from './modules/users/models/user'
 import { LoginRequestType } from './modules/users/models/login'
 import { SignupRequestType } from './modules/users/models/signup'
 import { RobotDtoCollectionType } from './modules/robots/models/robots'
-import {JWT} from "@fastify/jwt";
-import "@fastify/jwt"
-import {AuthenticateFunction} from "./core/models/auth";
+import { JWT } from '@fastify/jwt'
+import '@fastify/jwt'
+import { AuthenticateFunction } from './core/models/auth'
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -29,7 +29,7 @@ declare module 'fastify' {
   }
 }
 
-declare module "@fastify/jwt" {
+declare module '@fastify/jwt' {
   interface FastifyJWT {
     payload: {
       username: string
@@ -40,9 +40,9 @@ declare module "@fastify/jwt" {
   }
 }
 
-export function build (opts?: FastifyServerOptions): FastifyInstance {
+export function build(opts?: FastifyServerOptions): FastifyInstance {
   const defaultOptions = {
-    logger: true
+    logger: true,
   }
 
   const app = Fastify({ ...defaultOptions, ...opts })
@@ -52,16 +52,16 @@ export function build (opts?: FastifyServerOptions): FastifyInstance {
       info: {
         title: 'Fastify Modular Monolith',
         description: 'Fastify Modular Monolith Demo Api',
-        version: '0.1.0'
+        version: '0.1.0',
       },
       securityDefinitions: {
         apiKey: {
           type: 'apiKey',
           name: 'Authorization',
-          in: 'header'
-        }
-      }
-    }
+          in: 'header',
+        },
+      },
+    },
   })
 
   app.register(SwaggerUI)
@@ -69,13 +69,13 @@ export function build (opts?: FastifyServerOptions): FastifyInstance {
   app.register(FastifyPrismaClient, {})
 
   app.register(AutoLoad, {
-    dir: join(__dirname, 'core', 'plugins')
+    dir: join(__dirname, 'core', 'plugins'),
   })
 
   app.register(AutoLoad, {
     dir: join(__dirname, 'modules'),
     encapsulate: false,
-    maxDepth: 1
+    maxDepth: 1,
   })
 
   return app
