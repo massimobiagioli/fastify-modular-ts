@@ -25,12 +25,8 @@ const route: FastifyPluginAsyncTypebox = async function (
       },
     },
     async (request, reply) => {
-      try {
-        await fastify.signup(request.body)
-        reply.code(201).send()
-      } catch (error) {
-        reply.code(500).send()
-      }
+      await fastify.signup(request.body)
+      reply.code(201).send()
     },
   )
 }

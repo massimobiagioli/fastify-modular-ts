@@ -31,17 +31,12 @@ const route: FastifyPluginAsyncTypebox = async function (
       },
     },
     async (request, reply) => {
-      try {
-        const { username } = request.user
-        const user = await app.findUserByUsername(username)
-        if (user == null) {
-          return await reply.code(404).send()
-        }
-        return LoggedUserFactory.fromDto(user)
-      } catch (error) {
-        request.log.error(error)
-        return await reply.code(500).send()
+      const { username } = request.user
+      const user = await app.findUserByUsername(username)
+      if (user == null) {
+        return reply.code(404).send()
       }
+      return LoggedUserFactory.fromDto(user)
     },
   )
 }

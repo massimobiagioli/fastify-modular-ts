@@ -25,18 +25,13 @@ const route: FastifyPluginAsyncTypebox = async function (
           },
           500: {
             type: 'null',
-            description: 'Error retrieving user',
+            description: 'Internal server error',
           },
         },
       },
     },
     async (request, reply) => {
-      try {
-        return await app.listAllRobots()
-      } catch (error) {
-        request.log.error(error)
-        return await reply.code(500).send()
-      }
+      return await app.listAllRobots()
     },
   )
 }

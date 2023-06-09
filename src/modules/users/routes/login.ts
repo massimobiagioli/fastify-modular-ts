@@ -26,15 +26,11 @@ const route: FastifyPluginAsyncTypebox = async function (
       },
     },
     async (request, reply) => {
-      try {
-        const token = await app.login(request.body)
-        if (!token) {
-          return await reply.code(401).send()
-        }
-        return { token }
-      } catch (error) {
-        reply.code(500).send()
+      const token = await app.login(request.body)
+      if (!token) {
+        return reply.code(401).send()
       }
+      return { token }
     },
   )
 }

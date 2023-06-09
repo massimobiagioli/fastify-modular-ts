@@ -1,11 +1,11 @@
 import { test } from 'tap'
 import loginFactory from '../../../helper/loginFactory'
-import {build} from "../../../../src/app";
-import {LoggedUserType} from "../../../../src/modules/users/models/user";
+import { build } from '../../../../src/app'
+import { LoggedUserType } from '../../../../src/modules/users/models/user'
 
-test('get logged user info', async t => {
+test('get logged user info', async (t) => {
   const app = build({
-    logger: false
+    logger: false,
   })
 
   t.teardown(() => {
@@ -19,8 +19,8 @@ test('get logged user info', async t => {
     method: 'GET',
     url: '/api/users/me',
     headers: {
-      authorization: `Bearer ${token}`
-    }
+      authorization: `Bearer ${token}`,
+    },
   })
 
   const loggedUserResponse = response.json<LoggedUserType>()
@@ -32,9 +32,9 @@ test('get logged user info', async t => {
   t.equal(loggedUserResponse.lastname, 'LastName')
 })
 
-test('cannot retrieve logged user info if not authenticated', async t => {
+test('cannot retrieve logged user info if not authenticated', async (t) => {
   const app = build({
-    logger: false
+    logger: false,
   })
 
   t.teardown(() => {
@@ -43,15 +43,15 @@ test('cannot retrieve logged user info if not authenticated', async t => {
 
   const response = await app.inject({
     method: 'GET',
-    url: '/api/users/me'
+    url: '/api/users/me',
   })
 
   t.equal(response.statusCode, 401)
 })
 
-test('cannot retrieve logged user info if bad token provided', async t => {
+test('cannot retrieve logged user info if bad token provided', async (t) => {
   const app = build({
-    logger: false
+    logger: false,
   })
 
   t.teardown(() => {
@@ -62,9 +62,32 @@ test('cannot retrieve logged user info if bad token provided', async t => {
     method: 'GET',
     url: '/api/users/me',
     headers: {
-      authorization: 'Bearer bad-token'
-    }
+      authorization: 'Bearer bad-token',
+    },
   })
 
   t.equal(response.statusCode, 401)
+})
+
+test('get logged user info', async (t) => {
+  const app = build({
+    logger: false,
+  })
+
+  t.teardown(() => {
+    app.close()
+  })
+
+  await app.ready()
+  const token = app.jwt.sign({ username: 'fedez' })
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/users/me',
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  })
+
+  t.equal(response.statusCode, 404)
 })
